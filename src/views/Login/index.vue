@@ -46,10 +46,18 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { useLoginStore } from '@/stores'
+import { ElMessage } from 'element-plus'
+
+
+const loginStore = useLoginStore()
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 // 表单数据
 const form = ref({
-  username: 'admin',
-  password: '11'
+  username: 'test',
+  password: '123456'
 })
 // 表单的检验规则
 const rules = reactive({
@@ -69,13 +77,26 @@ const ruleFormRef = ref()
 const pwdIsShow = ref(true)
 
 const submit = async () => {
- ruleFormRef.value.validate((valid)=>{
+ ruleFormRef.value.validate( async(valid)=>{
   if (valid) {
     // 验证通过
     console.log('验证通过');
+  const { data : res } =  await loginStore.getLoginData(form.value.username,form.value.password)
+
+  // console.log(res);
+  if (res) {
+  // 存我们的 login 信息
+  loginStore.setLoginData(res)
+  // 跳转页面
+  router.push('/')
+  ElMessage.success('登录成功!')
+  }
+
   }
  })
 }
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -114,7 +135,7 @@ $cursor: #fff;
       input {
         background: transparent;
         border: 0px;
-        -webkit-appearance: none;
+        // -webkit-appearance: none;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;

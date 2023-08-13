@@ -1,35 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-const publicRoutes = [
-  // 重新定向
-  {
-    path: '/',
-    redirect: '/login'
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login/index.vue')
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: () => import('@/views/Home/index.vue'),
-  },
-  //  404
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/404/index.vue')
-  },
-  {
-    path: '/:pathMatch(.*)',
-    redirect: '/404'
-  }
+import {publicRoutes} from './router'
 
+/**
+ * 私有路由表
+ */
+const privateRoutes = [
+  // 用户
 ]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [...publicRoutes]
+  routes: [...publicRoutes, ...privateRoutes]
 })
+
 
 export default router

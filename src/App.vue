@@ -3,7 +3,21 @@
  <RouterView></RouterView>
 </template>
 
-<style scoped>
+<style>
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background:#97bfe5;
+}
+
+::-webkit-scrollbar-thumb{
+  width: 6px;
+  background-color: rgb(42, 168, 247);
+  border-radius: 6px;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
